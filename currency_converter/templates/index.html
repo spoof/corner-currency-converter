@@ -21,7 +21,7 @@
     {% from "_formhelpers.html" import render_field %}
     <div class="container">
       <div class="page-header"><h1>Currency Converter<h1></div>
-      <form method="POST" action="/" class="form-horizontal" role="form">
+      <form method="POST" action="{{ url_for('converter.index') }}" class="form-horizontal" role="form">
         {{ form.csrf_token }}
         {{ render_field(form.amount) }}
         {{ render_field(form.convert_from) }}

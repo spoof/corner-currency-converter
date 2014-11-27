@@ -9,6 +9,7 @@ class VisitorTest(unittest.TestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
+        self.url = 'http://localhost:5000'
 
     def tearDown(self):
         self.browser.quit()
@@ -16,26 +17,38 @@ class VisitorTest(unittest.TestCase):
     def test_fresh_start_page(self):
         browser = self.browser
 
-        browser.get('http://localhost:5000')
+        browser.get(self.url)
 
         self.assertIn('Currency Converter', self.browser.title)
 
         # User inputs data into 'Amount' field
         amount_input = browser.find_element_by_name('amount')
         amount_input.send_keys('1')
+
         # user clicks Enter, the page updates and we should see result
         amount_input.send_keys(Keys.ENTER)
 
-        result_text = browser.find_element_by_id("result")
-        self.fail('Finish the test!')
+        browser.find_element_by_id("result")
 
-        # user select value from 'From currency' field
+    def test_form_errors(self):
+        browser = self.browser
 
-        # user select value from 'To currency' field
+        browser.get(self.url)
 
-        # users clicks on 'Convert' button
+        # User inputs nothing into required fields
+        amount_input = browser.find_element_by_name('amount')
+        amount_input.send_keys(Keys.ENTER)
+        error = browser.find_element_by_class_name("amount-error")
+        self.assertEqual(error.text, 'This field is required.')
 
-        # users sees in '#result' result
+        # User inputs invalid values
+        amount_input = browser.find_element_by_name('amount')
+        amount_input.send_keys('test')
+        amount_input.send_keys(Keys.ENTER)
+        error = browser.find_element_by_class_name("amount-error")
+        msg = 'Not a valid float value Number must be between 0 and 10000.'
+        self.assertEqual(error.text, msg)
+
 
 if __name__ == '__main__':
     unittest.main()

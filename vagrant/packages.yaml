@@ -20,3 +20,7 @@
         - make
         - git-core
         - python-pip
+        - python-dev
+        - libxml2-dev
+        - libxslt1-dev
+        - redis-server

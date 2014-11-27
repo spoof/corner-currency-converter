@@ -1,17 +1,18 @@
 from flask import Flask
+from flask_redis import Redis
 
-from views.converter import converter_page
-
-
-app = Flask(__name__)
-
-DEBUG = True
-app.config.from_object(__name__)
+redis_store = Redis()
 
 
-# register all pages
-app.register_blueprint(converter_page)
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('currency_converter.appconfig.Config')
 
+    redis_store.init_app(app)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    # register all pages
+    from views.converter import converter_page
+
+    app.register_blueprint(converter_page)
+
+    return app

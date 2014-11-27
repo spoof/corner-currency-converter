@@ -4,7 +4,7 @@
         <div class="col-sm-2">
             {{ field(class_="form-control", **kwargs)|safe }}
             {% if field.errors %}
-                <p class="help-block">{{ field.errors|join(' ') }}</p>
+                <p class="help-block {{ field.name }}-error">{{ field.errors|join(' ') }}</p>
             {% endif %}
             {% if field.description %}
                 <p class="help-block">{{ field.description }}</p>

@@ -12,7 +12,10 @@ del os.link
 
 install_requires = [
     'Flask==0.10.1',
-    'Flask-WTF==0.10.3'
+    'Flask-WTF==0.10.3',
+    'requests',
+    'redis',
+    'flask-redis',
 ]
 
 setup(

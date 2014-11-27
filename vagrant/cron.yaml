@@ -1,0 +1,11 @@
+---
+- name: Set periodical jobs
+  hosts: all
+  sudo: True
+  gather_facts: True
+
+  tasks:
+    - name: set currency updater
+      cron: name="upate currencies" special_time="hourly"
+        user="root" job="python /vagrant/scripts/import_currencies.py > /dev/null"
+        cron_file=cornerapp-currency-updater
