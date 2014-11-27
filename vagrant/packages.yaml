@@ -1,0 +1,22 @@
+---
+- name: Set repos and packages
+  hosts: all
+  sudo: True
+  gather_facts: True
+
+  tasks:
+    - apt: update_cache=yes
+    - apt: upgrade=yes
+
+    - name: default packages
+      apt: name={{item}} state=installed install_recommends=no
+      with_items:
+        - less
+        - vim-nox
+
+    - name: system-wide python packages
+      apt: name={{item}} state=latest install_recommends=no
+      with_items:
+        - make
+        - git-core
+        - python-pip

@@ -1,0 +1,4 @@
+---
+- include: locale.yaml
+- include: timezone.yaml
+- include: packages.yaml
