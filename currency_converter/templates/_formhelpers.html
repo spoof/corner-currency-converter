@@ -1,8 +1,8 @@
 {% macro render_field(field) %}
-    <div class="control-group {% if field.errors %}error{% endif %}">
-        {{ field.label(class_="control-label") }}
-        <div class="controls">
-            {{ field(**kwargs)|safe }}
+    <div class="form-group{% if field.errors %} has-error{% endif %}">
+        {{ field.label(class_="control-label col-sm-2") }}
+        <div class="col-sm-2">
+            {{ field(class_="form-control", **kwargs)|safe }}
             {% if field.errors %}
                 <p class="help-block">{{ field.errors|join(' ') }}</p>
             {% endif %}
