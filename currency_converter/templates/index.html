@@ -13,7 +13,9 @@
     {{ render_field(form.amount) }}
     {{ render_field(form.convert_from) }}
     {{ render_field(form.convert_to) }}
-    <div>Result: {{ result }}</div>
+    {% if result %}
+    <div id="result">Result: {{ result }}</div>
+    {% endif %}
     <input type="submit" value="Convert">
 </form>
   </body>
